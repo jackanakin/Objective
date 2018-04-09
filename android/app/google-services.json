@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "506495953196",
+    "firebase_url": "https://ark-rn-template.firebaseio.com",
+    "project_id": "ark-rn-template",
+    "storage_bucket": "ark-rn-template.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506495953196:android:7a78c328cdec0b73",
+        "android_client_info": {
+          "package_name": "com.reactnativetemplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506495953196-habct3pmnteagvugaole1vg4hm41as6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAAeCJlYcvsLD07Kl3QABcvnE-DlNqg3Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
