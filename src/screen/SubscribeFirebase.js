@@ -14,11 +14,11 @@ import MyForm from '../component/MyForm'
 import MyTextError from '../component/MyTextError'
 import MyPasswordInput from '../component/MyPasswordInput'
 import MyProgress from '../component/MyProgress'
+import MyBackground from '../component/MyBackground'
 
 class SubscribeFirebase extends Component {
     constructor() {
         super();
-        //console.ignoredYellowBox = ['Setting a timer'];
         this.state = {
             username: "", password: "", confirmPassword: ""
         }
@@ -40,29 +40,31 @@ class SubscribeFirebase extends Component {
     render() {
         const { request } = this.props;
         return (
-            <View style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-                <MyTextTitle text="Subscribe" />
-                <MyProgress animating={request.inProgress} />
-                <MyForm>
-                    <MyTextInput placeholder="Usuário" onChangeText={text => this.setState({ username: text })} />
-                    <MyPasswordInput placeholder="Senha"
-                        onChangeText={text => this.setState({ password: text })} />
-                    <MyPasswordInput placeholder="Confirmação da senha"
-                        onChangeText={text => this.setState({ confirmPassword: text })} />
-                </MyForm>
-                {
-                    request.response ?
-                        <MyTextError text={request.response.message} />
-                        : null
-                }
+            <MyBackground>
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <MyTextTitle text="Inscrição" />
+                    <MyProgress animating={request.inProgress} />
+                    <MyForm>
+                        <MyTextInput placeholder="Usuário" onChangeText={text => this.setState({ username: text })} />
+                        <MyPasswordInput placeholder="Senha"
+                            onChangeText={text => this.setState({ password: text })} />
+                        <MyPasswordInput placeholder="Confirmação da senha"
+                            onChangeText={text => this.setState({ confirmPassword: text })} />
+                    </MyForm>
+                    {
+                        request.response ?
+                            <MyTextError text={request.response.message} />
+                            : null
+                    }
 
-                <MyButton text="Inscrever-se" onPress={this._subscribe} />
-            </View>
+                    <MyButton text="Inscrever-se" onPress={this._subscribe} />
+                </View>
+            </MyBackground>
         );
     }
 }

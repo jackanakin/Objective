@@ -5,7 +5,9 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import { login, reset } from './action/FirebaseAction';
+import { uiTheme } from '../style/theme';
 
 import MyTextInput from '../component/MyTextInput'
 import MyButton from '../component/MyButton'
@@ -14,6 +16,7 @@ import MyForm from '../component/MyForm'
 import MyTextError from '../component/MyTextError'
 import MyPasswordInput from '../component/MyPasswordInput'
 import MyProgress from '../component/MyProgress'
+import MyBackground from '../component/MyBackground';
 
 class Login extends Component {
     constructor() {
@@ -36,27 +39,30 @@ class Login extends Component {
         const { request } = this.props;
 
         return (
-            <View style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-                <MyTextTitle text="Firebase Login" />
-                <MyProgress animating={request.inProgress} />
-                <MyForm>
-                    <MyTextInput placeholder="Usuário" onChangeText={text => this.setState({ username: text })} />
-                    <MyPasswordInput placeholder="Senha"
-                        onChangeText={text => this.setState({ password: text })} />
-                </MyForm>
-                {
-                    request.response ?
-                        <MyTextError text={request.response.message} />
-                        : null
-                }
+            <MyBackground>
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <MyTextTitle text="Login" />
+                    <MyProgress animating={request.inProgress} />
+                    <MyForm>
+                        <MyTextInput placeholder="Usuário" onChangeText={text => this.setState({ username: text })} />
+                        <MyPasswordInput placeholder="Senha"
+                            onChangeText={text => this.setState({ password: text })} />
+                    </MyForm>
+                    {
+                        request.response ?
+                            <MyTextError text={request.response.message} />
+                            : null
+                    }
 
-                <MyButton text="Entrar" upperCase={false} onPress={this._login} />
-            </View>
+                    <MyButton text="Entrar" onPress={this._login} />
+                    <MyButton text="Inscreva-se" onPress={() => Actions.subscribeFirebaseScreen()} />
+                </View>
+            </MyBackground>
         );
     }
 }

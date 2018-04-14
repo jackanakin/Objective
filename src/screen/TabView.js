@@ -1,20 +1,16 @@
 import * as React from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
-
+import ProjectList from './ProjectList';
 import { strings } from '../../locales/_i18n';
+import TopMenu from './TopMenu';
 
 const initialLayout = {
     height: 0,
     width: Dimensions.get('window').width,
 };
 
-const FirstRoute = () =>
-    <View style={[styles.container, { backgroundColor: '#ff4081' }]}>
-        <Text style={{ fontFamily: 'sans-serif-medium' }}>sans-serif-medium</Text>
-        <Text style={{ fontFamily: 'Roboto' }}>Roboto</Text>
-        <Text style={{ fontFamily: 'monospace' }}>monospace</Text>
-    </View>;
+
 const SecondRoute = () => <View style={[styles.container, { backgroundColor: '#673ab7' }]} />;
 
 export default class TabViewExample extends React.Component {
@@ -28,10 +24,10 @@ export default class TabViewExample extends React.Component {
 
     _handleIndexChange = index => this.setState({ index });
 
-    _renderHeader = props => <TabBar {...props} />;
+    _renderHeader = props => <TopMenu {...props} />;
 
     _renderScene = SceneMap({
-        '1': FirstRoute,
+        '1': ProjectList,
         '2': SecondRoute,
     });
 

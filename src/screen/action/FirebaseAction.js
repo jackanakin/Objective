@@ -18,7 +18,7 @@ export const login = ({ username, password }) => {
 
 const loginSuccess = (dispatch) => {
     dispatch({ type: FIREBASE_LOG_SUCCESS });
-    Actions.appHome();
+    Actions.loginScreen();
 }
 
 ///SUBSCRIBE

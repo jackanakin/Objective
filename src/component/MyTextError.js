@@ -6,7 +6,13 @@ import { uiTheme } from '../style/theme'
 export default class MyTextError extends PureComponent {
     render() {
         return (
-            <Text style={uiTheme.myTextError}>{this.props.text}</Text>
+            <Text style={style}>{this.props.text}</Text>
         )
     }
+}
+
+const style = {
+    marginTop: 15,
+    color: uiTheme.palette.errorTextColor,
+    fontWeight: 'bold'
 }

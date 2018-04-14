@@ -6,7 +6,11 @@ import { uiTheme } from '../style/theme'
 export default class MyTextTitle extends PureComponent {
     render() {
         return (
-            <Text style={uiTheme.myTextTitle}>{this.props.text}</Text>
+            <Text style={style}>{this.props.text}</Text>
         )
     }
+}
+
+const style = {
+    fontWeight: 'bold', fontSize: 26, color: uiTheme.palette.primaryTextColor
 }

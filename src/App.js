@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
@@ -9,6 +10,8 @@ import reducers from './reducer';
 
 import { uiTheme } from './style/theme'
 import { ThemeProvider } from 'react-native-material-ui';
+
+import MyStatusBar from './component/MyStatusBar';
 
 class App extends Component {
   componentWillMount() {
@@ -28,7 +31,10 @@ class App extends Component {
     return (
       <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
         <ThemeProvider uiTheme={uiTheme}>
-          <Routes />
+          <View style={{ flex: 1 }}>
+            <MyStatusBar />
+            <Routes />
+          </View>
         </ThemeProvider>
       </Provider>
     );

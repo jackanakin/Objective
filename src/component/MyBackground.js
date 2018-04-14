@@ -1,18 +1,14 @@
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 
-import { deviceWidth } from '../style/theme'
+import { uiTheme } from '../style/theme'
 
-export default class MyForm extends PureComponent {
+export default class MyBackground extends PureComponent {
     render() {
         return (
-            <View style={style}>
+            <View style={{ backgroundColor: uiTheme.palette.primaryBackground, flex: 1 }}>
                 {this.props.children}
             </View>
         )
     }
-}
-
-const style = {
-    width: deviceWidth * 0.8
 }

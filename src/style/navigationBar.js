@@ -6,10 +6,10 @@ export const navBarStyle = {
         backgroundColor: uiTheme.palette.primaryColor,
     },
     titleStyle: {
-        color: uiTheme.palette.primaryTextColor,
+        color: uiTheme.palette.secondaryTextColor,
     },
     leftButtonTextStyle: {
-        color: uiTheme.palette.primaryTextColor,
+        color: uiTheme.palette.secondaryTextColor,
     },
-    backButtonTintColor: uiTheme.palette.primaryTextColor
+    backButtonTintColor: uiTheme.palette.secondaryTextColor
 };

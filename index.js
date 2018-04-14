@@ -6,4 +6,4 @@ const Messenger = props => (
     <App />
 )
 
-AppRegistry.registerComponent('Objective', () => App);
+AppRegistry.registerComponent('ReactNativeTemplate', () => App);

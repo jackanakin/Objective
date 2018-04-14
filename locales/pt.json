@@ -1,9 +1,12 @@
 {
+    "app": {
+        "title": "Objective"
+    },
+    "topMenu": {
+        "logout": "Sair"
+    },
     "appHome": {
         "active": "Ativos",
         "new": "Novo"
-    },
-    "user_profile": {
-        "title": "Your Profile"
     }
 }
