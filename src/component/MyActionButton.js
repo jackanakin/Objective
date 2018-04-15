@@ -6,7 +6,7 @@ import { uiTheme } from '../style/theme'
 export default class MyActionButton extends PureComponent {
     render() {
         return (
-            <ActionButton icon={this.props.icon} style={style} />
+            <ActionButton icon={this.props.icon} style={style} onPress={this.props.onPress} />
         )
     }
 }

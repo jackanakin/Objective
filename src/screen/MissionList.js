@@ -3,13 +3,14 @@ import { View, Text, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import MyBackground from '../component/MyBackground'
 import MyActionButton from '../component/MyActionButton';
+import { Actions } from 'react-native-router-flux';
 
-export default class ProjectList extends Component {
+export default class MissionList extends Component {
+
     render() {
         return (
             <MyBackground>
-                <Text style={{ fontSize: 18 }}>Testes</Text>
-                <MyActionButton />
+                <MyActionButton onPress={() => Actions.newMission()} />
             </MyBackground>
         )
     }

@@ -1,6 +1,6 @@
 {
   "name": "ReactNativeTemplate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -19,6 +19,7 @@
     "react-native-gesture-handler": "^1.0.0-alpha.42",
     "react-native-i18n": "^2.0.12",
     "react-native-material-ui": "^1.22.0",
+    "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-tab-view": "^0.0.77",
     "react-native-vector-icons": "^4.6.0",

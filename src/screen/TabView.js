@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
-import ProjectList from './ProjectList';
+import MissionList from './MissionList';
 import { strings } from '../../locales/_i18n';
 import TopMenu from './TopMenu';
 
@@ -27,7 +27,7 @@ export default class TabViewExample extends React.Component {
     _renderHeader = props => <TopMenu {...props} />;
 
     _renderScene = SceneMap({
-        '1': ProjectList,
+        '1': MissionList,
         '2': SecondRoute,
     });
 

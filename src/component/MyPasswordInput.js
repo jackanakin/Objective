@@ -6,7 +6,7 @@ import { uiTheme } from '../style/theme'
 export default class MyPasswordInput extends Component {
     render() {
         return (
-            <TextInput placeholderTextColor={uiTheme.placeholderTextColor} secureTextEntry={true} style={style} underlineColorAndroid="transparent"
+            <TextInput placeholderTextColor={uiTheme.placeholderTextColor} secureTextEntry={true} style={uiTheme.inputText} underlineColorAndroid="transparent"
                 autoCapitalize="none" placeholder={this.props.placeholder} onChangeText={this.props.onChangeText} />
         )
     }
@@ -14,11 +14,4 @@ export default class MyPasswordInput extends Component {
     shouldComponentUpdate(nextProps) {
         return this.props.value !== nextProps.value;
     }
-}
-
-const style = {
-    marginTop: 10,
-    height: 40,
-    borderBottomWidth: 1,
-    borderBottomColor: uiTheme.palette.primaryTextColor
 }

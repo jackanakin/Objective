@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
-    View,
     Alert
 } from 'react-native';
 
 import { connect } from 'react-redux';
 import { subscribe, reset } from './action/FirebaseAction';
+import { strings } from '../../locales/_i18n';
 
 import MyTextInput from '../component/MyTextInput'
 import MyButton from '../component/MyButton'
@@ -15,12 +15,13 @@ import MyTextError from '../component/MyTextError'
 import MyPasswordInput from '../component/MyPasswordInput'
 import MyProgress from '../component/MyProgress'
 import MyBackground from '../component/MyBackground'
+import MyView from '../component/MyView';
 
 class SubscribeFirebase extends Component {
     constructor() {
         super();
         this.state = {
-            username: "", password: "", confirmPassword: ""
+            name: "", username: "", password: "", confirmPassword: ""
         }
     }
 
@@ -29,27 +30,19 @@ class SubscribeFirebase extends Component {
     }
 
     _subscribe = () => {
-        const { username, password, confirmPassword } = this.state;
-        if (password !== confirmPassword) {
-            Alert.alert("As senhas não conferem");
-        } else {
-            this.props.subscribe({ username, password });
-        }
+        const { name, username, password, confirmPassword } = this.state;
+        this.props.subscribe({ username, password, confirmPassword, name });
     }
 
     render() {
-        const { request } = this.props;
+        const { subscribeRequest } = this.props;
         return (
             <MyBackground>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
+                <MyView>
                     <MyTextTitle text="Inscrição" />
-                    <MyProgress animating={request.inProgress} />
+                    <MyProgress animating={subscribeRequest.inProgress} />
                     <MyForm>
+                        <MyTextInput placeholder={strings('subscription.username')} onChangeText={text => this.setState({ name: text })} />
                         <MyTextInput placeholder="Usuário" onChangeText={text => this.setState({ username: text })} />
                         <MyPasswordInput placeholder="Senha"
                             onChangeText={text => this.setState({ password: text })} />
@@ -57,13 +50,18 @@ class SubscribeFirebase extends Component {
                             onChangeText={text => this.setState({ confirmPassword: text })} />
                     </MyForm>
                     {
-                        request.response ?
-                            <MyTextError text={request.response.message} />
+                        subscribeRequest.response ?
+                            <MyTextError text={subscribeRequest.response.message} />
+                            : null
+                    }
+                    {
+                        subscribeRequest.message ?
+                            <MyTextError text={subscribeRequest.message} />
                             : null
                     }
 
-                    <MyButton text="Inscrever-se" onPress={this._subscribe} />
-                </View>
+                    <MyButton text={strings('subscription.subscribe_button')} onPress={this._subscribe} />
+                </MyView>
             </MyBackground>
         );
     }
@@ -71,8 +69,7 @@ class SubscribeFirebase extends Component {
 
 const mapStateToProps = state => {
     return ({
-        response: state.FirebaseReducer.response,
-        request: state.FirebaseReducer.request
+        subscribeRequest: state.FirebaseReducer.subscribeRequest
     });
 }
 

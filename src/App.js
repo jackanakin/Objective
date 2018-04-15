@@ -16,12 +16,12 @@ import MyStatusBar from './component/MyStatusBar';
 class App extends Component {
   componentWillMount() {
     const config = {
-      apiKey: "AIzaSyAPJLKLvvWK45GXh8tZ0kmAeYSe_t2d0Is",
-      authDomain: "ark-rn-template.firebaseapp.com",
-      databaseURL: "https://ark-rn-template.firebaseio.com",
-      projectId: "ark-rn-template",
-      storageBucket: "ark-rn-template.appspot.com",
-      messagingSenderId: "506495953196"
+      apiKey: "AIzaSyAry4RDke0xA1km2Q0ArjkJpOTXqrFHRK0",
+      authDomain: "ark-objective.firebaseapp.com",
+      databaseURL: "https://ark-objective.firebaseio.com",
+      projectId: "ark-objective",
+      storageBucket: "ark-objective.appspot.com",
+      messagingSenderId: "637300781377"
     };
     firebase.initializeApp(config);
   }

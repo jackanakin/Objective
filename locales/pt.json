@@ -2,11 +2,33 @@
     "app": {
         "title": "Objective"
     },
-    "topMenu": {
-        "logout": "Sair"
+    "login": {
+        "title": "Objective"
     },
     "appHome": {
         "active": "Ativos",
         "new": "Novo"
+    },
+    "subscription": {
+        "title": "Inscrição",
+        "username": "Seu nome",
+        "user_email": "Seu e-mail",
+        "user_password": "Sua senha",
+        "password_confirmation": "Confirme sua senha",
+        "invalidName": "Por favor, nos diga seu nome",
+        "subscribe_button": "Inscrever-se",
+        "unmatchPassword": "Senha de confirmação incorreta"
+    },
+    "topMenu": {
+        "logout": "Sair"
+    },
+    "newMission": {
+        "screenTitle": "Nova missão",
+        "subTitle": "Crie uma nova missão",
+        "title": "Nome da missão",
+        "description": "De maneira clara e objetiva, descreva a missão..",
+        "dateStart": "Início",
+        "dateEnd": "Fim",
+        "create": "Criar"
     }
 }

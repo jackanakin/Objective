@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 
 export const deviceWidth = Dimensions.get('screen').width;
 const primaryTextColor = '#212121';
-const primaryColor = '#004d40';
+const primaryColor = '#18227c';
 const secondaryTextColor = COLOR.white;
 
 export const uiTheme = {
@@ -11,8 +11,8 @@ export const uiTheme = {
     palette: {
         // main theme colors
         primaryColor: primaryColor,
-        primaryLightColor: '#39796b',
-        primaryDarkColor: '#00251a',
+        primaryLightColor: '#514aac',
+        primaryDarkColor: '#00004f',
         primaryTextColor: primaryTextColor,
         primaryBackground: '#bdbdbd',
 
@@ -37,4 +37,18 @@ export const uiTheme = {
     },
     placeholderTextColor: primaryTextColor,
     statusBarColor: primaryColor,
+    inputText: {
+        marginTop: 10,
+        height: 40,
+        borderBottomWidth: 1,
+        borderBottomColor: primaryTextColor,
+        color: 'black', fontWeight: 'bold'
+    },
+    button: {
+        container: {
+            marginTop: 20,
+            height: 40,
+            width: deviceWidth * 0.8
+        }
+    }
 };

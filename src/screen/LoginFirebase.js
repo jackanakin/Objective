@@ -17,6 +17,7 @@ import MyTextError from '../component/MyTextError'
 import MyPasswordInput from '../component/MyPasswordInput'
 import MyProgress from '../component/MyProgress'
 import MyBackground from '../component/MyBackground';
+import MyView from '../component/MyView';
 
 class Login extends Component {
     constructor() {
@@ -36,32 +37,27 @@ class Login extends Component {
     }
 
     render() {
-        const { request } = this.props;
+        const { loginRequest } = this.props;
 
         return (
             <MyBackground>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
+                <MyView>
                     <MyTextTitle text="Login" />
-                    <MyProgress animating={request.inProgress} />
+                    <MyProgress animating={loginRequest.inProgress} />
                     <MyForm>
                         <MyTextInput placeholder="Usuário" onChangeText={text => this.setState({ username: text })} />
                         <MyPasswordInput placeholder="Senha"
                             onChangeText={text => this.setState({ password: text })} />
                     </MyForm>
                     {
-                        request.response ?
-                            <MyTextError text={request.response.message} />
+                        loginRequest.response ?
+                            <MyTextError text={loginRequest.response.message} />
                             : null
                     }
 
                     <MyButton text="Entrar" onPress={this._login} />
                     <MyButton text="Inscreva-se" onPress={() => Actions.subscribeFirebaseScreen()} />
-                </View>
+                </MyView>
             </MyBackground>
         );
     }
@@ -69,7 +65,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return ({
-        request: state.FirebaseReducer.request
+        loginRequest: state.FirebaseReducer.loginRequest
     });
 }
 
