@@ -30,5 +30,11 @@
         "dateStart": "Início",
         "dateEnd": "Fim",
         "create": "Criar"
+    },
+    "validation": {
+        "mission": {
+            "title": "Por favor, dê um nome a missão",
+            "date": "Atenção, o prazo está menor que o início"
+        }
     }
 }

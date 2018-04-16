@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { newMission } from './action/MissionAction';
 import { strings } from '../../locales/_i18n';
-import {uiTheme} from '../style/theme';
+import { uiTheme } from '../style/theme';
 
 import MyTextInput from '../component/MyTextInput'
 import MyButton from '../component/MyButton'
@@ -35,38 +35,19 @@ class NewMission extends Component {
     }
   }
 
-  _toggleStartDatePicker = () =>
-    this.setState({ showStartDatePicker: !this.state.showStartDatePicker });
-
-  _toggleEndDatePicker = () =>
-    this.setState({ showEndDatePicker: !this.state.showEndDatePicker });
-
-  _handleStartDatePicked = (date) => {
-    this.setState(prevState => ({
-      mission: {
-        ...prevState.mission,
-        start: date
-      }, showStartDatePicker: !this.state.showStartDatePicker
-    }));
-  };
-
-  _handleEndDatePicked = (date) => {
-    this.setState(prevState => ({
-      mission: {
-        ...prevState.mission,
-        deadline: date
-      }, showEndDatePicker: !this.state.showEndDatePicker
-    }));
-  };
+  _newMission = () => {
+    this.props.newMission(this.state.mission);
+  }
 
   render() {
-    const { request } = this.props;
+    const { request, newMission } = this.props;
     return (
       <MyBackground>
         <MyView>
           <MyTextTitle text={strings('newMission.subTitle')} />
+          <MyProgress animating={request.inProgress} />
           <MyForm>
-            <MyTextInput placeholder={strings('newMission.title')} onChangeText={
+            <MyTextInput  placeholder={strings('newMission.title')} onChangeText={
               text => this.setState(prevState => ({
                 mission: {
                   ...prevState.mission,
@@ -90,22 +71,41 @@ class NewMission extends Component {
               toggleDatePicker={this._toggleEndDatePicker} />
           </MyForm>
           {
-            request.response ?
-              <MyTextError text={request.response.message} />
-              : null
-          }
-          {
             request.message ?
               <MyTextError text={request.message} />
               : null
           }
 
           <MyLargeIconButton icon="plus-circle" backgroundColor={uiTheme.palette.primaryColor}
-            text={strings('newMission.create')}/>
+            text={strings('newMission.create')} onPress={this._newMission} />
         </MyView>
       </MyBackground>
     );
   }
+
+  _toggleStartDatePicker = () =>
+    this.setState({ showStartDatePicker: !this.state.showStartDatePicker });
+
+  _toggleEndDatePicker = () =>
+    this.setState({ showEndDatePicker: !this.state.showEndDatePicker });
+
+  _handleStartDatePicked = (date) => {
+    this.setState(prevState => ({
+      mission: {
+        ...prevState.mission,
+        start: date
+      }, showStartDatePicker: !this.state.showStartDatePicker
+    }));
+  };
+
+  _handleEndDatePicked = (date) => {
+    this.setState(prevState => ({
+      mission: {
+        ...prevState.mission,
+        deadline: date
+      }, showEndDatePicker: !this.state.showEndDatePicker
+    }));
+  };
 }
 
 const mapStateToProps = state => {

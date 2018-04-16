@@ -11,6 +11,10 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case MISSION_FIRED:
+            return Object.assign({}, state, {
+                request: new HttpRequest({ inProgress: true, message: null })
+            });
         default:
             return state;
     }

@@ -1,6 +1,6 @@
 {
   "name": "ReactNativeTemplate",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -12,6 +12,7 @@
     "firebase": "^4.12.1",
     "immutable": "^3.8.2",
     "lodash": "^4.17.5",
+    "prop-types": "^15.6.1",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.4",
     "react-native-dotenv": "^0.1.1",

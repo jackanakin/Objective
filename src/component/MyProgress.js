@@ -8,7 +8,9 @@ import { uiTheme } from '../style/theme'
 export default class MyProgress extends PureComponent {
     render() {
         return (
-            <ActivityIndicator size="large" color={uiTheme.palette.primaryColor} animating={this.props.animating} />
+            this.props.animating ?
+                <ActivityIndicator size="large" color={uiTheme.palette.primaryColor} />
+                : null
         )
     }
 }

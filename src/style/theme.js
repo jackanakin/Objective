@@ -5,6 +5,8 @@ export const deviceWidth = Dimensions.get('screen').width;
 const primaryTextColor = '#212121';
 const primaryColor = '#18227c';
 const secondaryTextColor = COLOR.white;
+const errorTextColor = COLOR.redA700;
+export const validationColor = '#FFEB3B';
 
 export const uiTheme = {
     fontFamily: 'Iowan Old Style',//Roboto',
@@ -32,7 +34,7 @@ export const uiTheme = {
         disabledTextColor: COLOR.black,
         activeIcon: COLOR.black,
         inactiveIcon: COLOR.black,
-        errorTextColor: COLOR.redA700,
+        errorTextColor: errorTextColor,
 
     },
     placeholderTextColor: primaryTextColor,
@@ -42,7 +44,7 @@ export const uiTheme = {
         height: 40,
         borderBottomWidth: 1,
         borderBottomColor: primaryTextColor,
-        color: 'black', fontWeight: 'bold'
+        color: 'black'
     },
     button: {
         container: {
@@ -50,5 +52,8 @@ export const uiTheme = {
             height: 40,
             width: deviceWidth * 0.8
         }
+    },
+    inputTextValidation: {
+        borderBottomColor: validationColor
     }
 };

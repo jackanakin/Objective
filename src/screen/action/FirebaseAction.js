@@ -24,7 +24,7 @@ const loginSuccess = (dispatch) => {
 
 function loginInProgress() {
     return {
-        type: FIREBASE_SUB_FIRED
+        type: FIREBASE_LOG_FIRED
     }
 }
 
