@@ -26,7 +26,7 @@
         "screenTitle": "Nova missão",
         "subTitle": "Crie uma nova missão",
         "title": "Nome da missão",
-        "description": "De maneira clara e objetiva, descreva a missão..",
+        "description": "De maneira clara e objetiva, descreva a missão...",
         "dateStart": "Início",
         "dateEnd": "Fim",
         "create": "Criar"
@@ -34,7 +34,7 @@
     "validation": {
         "mission": {
             "title": "Por favor, dê um nome a missão",
-            "date": "Atenção, o prazo está menor que o início"
+            "startDate": "Atenção, o prazo encerra antes que o início"
         }
     }
 }

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { TextInput, Text, View } from 'react-native';
 
-import { uiTheme, validationColor } from '../style/theme'
+import { uiTheme, errorTextColor } from '../style/theme'
 
 export default class MyTextInput extends Component {
     render() {
-        const validationStyle = this.props.ve ? uiTheme.inputTextValidation : null;
+        const validationStyle = this.props.vm ? uiTheme.inputTextValidation : null;
+        const validationMessage = this.props.vm;
+
         return (
             <View>
                 <TextInput
@@ -13,14 +15,14 @@ export default class MyTextInput extends Component {
                     placeholderTextColor={[uiTheme.placeholderTextColor]}
                     underlineColorAndroid="transparent" autoCapitalize="none" placeholder={this.props.placeholder}
                     onChangeText={this.props.onChangeText} />
-                {this.props.ve ?
-                    <Text style={{ color: validationColor }}>{this.props.vem}</Text> : null
+                {validationMessage ?
+                    <Text style={{ color: errorTextColor }}>{validationMessage}</Text> : null
                 }
             </View>
         )
     }
 
     shouldComponentUpdate(nextProps) {
-        return this.props.value !== nextProps.value || this.props.ve !== nextProps.ve;
+        return this.props.vm !== nextProps.vm;
     }
 }

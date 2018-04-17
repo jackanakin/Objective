@@ -1,3 +1,5 @@
+import * as JsUtil from '../util/JsUtil';
+
 export default function Mission(props) {
     this.title = props.title;
     this.description = props.description;
@@ -13,7 +15,16 @@ export function saveValidate(mission) {
         validation.title = "validation.mission.title";
     }
     if (mission.start > mission.deadline) {
-        validation.start = "validation.mission.date";
+        validation.startDate = "validation.mission.startDate";
     }
     return validation;
+};
+
+export function buildMissionObject(mission) {
+    let newObj = JsUtil.clone(mission);
+    delete newObj.objectives;
+    if (!newObj.description) { delete newObj.description; }
+    newObj.start = JsUtil.toFirebaseDateObject(mission.start);
+    newObj.deadline = JsUtil.toFirebaseDateObject(mission.deadline);
+    return newObj;
 };

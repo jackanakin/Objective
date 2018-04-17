@@ -1,28 +1,34 @@
 import firebase from 'firebase';
 import b64 from 'base-64';
 import { Actions } from 'react-native-router-flux';
+import _ from 'lodash';
+
 import {
-    MISSION_NEW, MISSION_FIRED
+    MISSION_NEW, MISSION_FIRED, MISSION_VE, MISSION_NEW_ERROR
 } from '../../reducer/_ActionType';
 import { strings } from '../../../locales/_i18n';
-import { saveValidate } from '../../entity/Mission';
+import { saveValidate, buildMissionObject } from '../../entity/Mission';
 
 ///LOGIN
 export const newMission = (mission) => {
     return dispatch => {
-        dispatch(requestInProgress());/*
+
         const { currentUser } = firebase.auth();
         let encodedCurrentUser = b64.encode(currentUser.email);
-        mission.leader = encodedCurrentUser;*/
-        delete mission.objectives;
-        console.warn(mission);
-        console.warn(saveValidate(mission));
-        return;
+        mission.leader = encodedCurrentUser;
+        let validation = saveValidate(mission);
 
-        firebase.database().ref(`missions`)
-            .push(mission)
-            .then(() => console.warn("sucesso"))
-            .catch(erro => console.warn("erro: " + erro));
+        if (!_.isEmpty(validation)) {
+            dispatch(validationException(validation));
+        } else {
+            dispatch(requestInProgress());
+            let saveObj = buildMissionObject(mission);
+
+            firebase.database().ref(`missions`)
+                .push(saveObj)
+                .then(() => console.warn("sucesso"))
+                .catch(error => newMissionError(error.message, dispatch));
+        }
     }
 }/*
 export const adicionaContato = email => {
@@ -56,6 +62,21 @@ export const adicionaContato = email => {
             })
     }
 }*/
+
+const newMissionError = (error, dispatch) => (
+    dispatch(
+        {
+            type: MISSION_NEW_ERROR,
+            payload: error
+        }
+    )
+)
+
+function validationException(validation) {
+    return {
+        type: MISSION_VE, payload: validation
+    }
+}
 
 function requestInProgress() {
     return {

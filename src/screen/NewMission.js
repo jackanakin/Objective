@@ -40,15 +40,19 @@ class NewMission extends Component {
   }
 
   render() {
-    const { request, newMission } = this.props;
+    const { request, newMission, validation } = this.props;
+    const validationArray = validation.response;
+
+    const startDateVE = !validation.empty && validationArray.startDate;
+    const titleVE = !validation.empty && validationArray.title;
+
     return (
       <MyBackground>
         <MyView>
-          <MyTextTitle text={strings('newMission.subTitle')} />
           <MyProgress animating={request.inProgress} />
           <MyForm>
-            <MyTextInput  placeholder={strings('newMission.title')} onChangeText={
-              text => this.setState(prevState => ({
+            <MyTextInput vm={titleVE ? strings(validationArray.title) : null}
+              placeholder={strings('newMission.title')} onChangeText={text => this.setState(prevState => ({
                 mission: {
                   ...prevState.mission,
                   title: text
@@ -63,7 +67,7 @@ class NewMission extends Component {
               }))} />
             <MyDatePickerStart onConfirm={this._handleStartDatePicked}
               isVisible={this.state.showStartDatePicker} date={this.state.mission.start}
-              text={strings('newMission.dateStart')}
+              text={strings('newMission.dateStart')} vm={startDateVE ? strings(validationArray.startDate) : null}
               toggleDatePicker={this._toggleStartDatePicker} />
             <MyDatePickerEnd onConfirm={this._handleEndDatePicked}
               isVisible={this.state.showEndDatePicker}
@@ -110,7 +114,8 @@ class NewMission extends Component {
 
 const mapStateToProps = state => {
   return ({
-    request: state.MissionReducer.request
+    request: state.MissionReducer.request,
+    validation: state.MissionReducer.validation
   });
 }
 

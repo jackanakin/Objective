@@ -19,7 +19,7 @@ export const login = ({ username, password }) => {
 
 const loginSuccess = (dispatch) => {
     dispatch({ type: FIREBASE_LOG_SUCCESS });
-    Actions.app().appHome();
+    Actions.appHome();
 }
 
 function loginInProgress() {

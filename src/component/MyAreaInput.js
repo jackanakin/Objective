@@ -8,7 +8,7 @@ export default class MyAreaInput extends Component {
         return (
             <View style={{
                 backgroundColor: uiTheme.palette.primaryBackground,
-                borderBottomColor: uiTheme.placeholderTextColor,
+                borderBottomColor: uiTheme.palette.primaryTextColor,
                 borderBottomWidth: 1
             }}>
                 <TextInput placeholderTextColor={uiTheme.placeholderTextColor}
