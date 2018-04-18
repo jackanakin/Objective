@@ -4,15 +4,27 @@ import { Actions } from 'react-native-router-flux';
 import _ from 'lodash';
 
 import {
-    MISSION_NEW, MISSION_FIRED, MISSION_VE, MISSION_NEW_ERROR
+    MISSION_NEW_FIRED, MISSION_NEW_VE, MISSION_NEW_ERROR, MISSION_NEW_SUCCESS, MISSION_FLIST
 } from '../../reducer/_ActionType';
 import { strings } from '../../../locales/_i18n';
 import { saveValidate, buildMissionObject } from '../../entity/Mission';
+import * as Toast from '../../util/Toast';
 
-///LOGIN
+export const listMission = () => {
+    //const { currentUser } = firebase.auth();
+
+    return (dispatch) => {
+        //let emailUsuarioB64 = b64.encode(currentUser.email);
+
+        firebase.database().ref(`/missions/`)
+            .on("value", snapshot => {
+                dispatch({ type: MISSION_FLIST, payload: snapshot.val() })
+            });
+    }
+}
+
 export const newMission = (mission) => {
     return dispatch => {
-
         const { currentUser } = firebase.auth();
         let encodedCurrentUser = b64.encode(currentUser.email);
         mission.leader = encodedCurrentUser;
@@ -26,42 +38,17 @@ export const newMission = (mission) => {
 
             firebase.database().ref(`missions`)
                 .push(saveObj)
-                .then(() => console.warn("sucesso"))
+                .then(value => newMissionSuccess(dispatch))
                 .catch(error => newMissionError(error.message, dispatch));
         }
     }
-}/*
-export const adicionaContato = email => {
-    return dispatch => {
-        let emailB64 = b64.encode(email);
-        firebase.database().ref(`/contatos/${emailB64}`)
-            .once('value')
-            .then(snapshot => {
-                if (snapshot.val()) {
-                    //email do contato que queremos adicionar
-                    const dadosUsuario = _.first(_.values(snapshot.val()));
-                    console.log(dadosUsuario);
+}
 
-                    //email do usuário autenticado
-                    const { currentUser } = firebase.auth();
-                    let emailUsuarioB64 = b64.encode(currentUser.email);
-
-                    firebase.database().ref(`/usuario_contatos/${emailUsuarioB64}`)
-                        .push({ email, nome: dadosUsuario.nome })
-                        .then(() => adicionaContatoSucesso(dispatch))
-                        .catch(erro => adicionaContatoErro(erro.message, dispatch))
-
-                } else {
-                    dispatch(
-                        {
-                            type: ADICIONA_CONTATO_ERRO,
-                            payload: 'E-mail informado não corresponde a um usuário válido!'
-                        }
-                    )
-                }
-            })
-    }
-}*/
+const newMissionSuccess = (dispatch) => {
+    dispatch({ type: MISSION_NEW_SUCCESS });
+    Actions.appHome();
+    Toast.short(strings('newMission.newMissionSuccess'));
+}
 
 const newMissionError = (error, dispatch) => (
     dispatch(
@@ -74,12 +61,12 @@ const newMissionError = (error, dispatch) => (
 
 function validationException(validation) {
     return {
-        type: MISSION_VE, payload: validation
+        type: MISSION_NEW_VE, payload: validation
     }
 }
 
 function requestInProgress() {
     return {
-        type: MISSION_FIRED
+        type: MISSION_NEW_FIRED
     }
 }

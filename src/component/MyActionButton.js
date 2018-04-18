@@ -12,5 +12,8 @@ export default class MyActionButton extends PureComponent {
 }
 
 const style = {
-    container: { backgroundColor: uiTheme.palette.secondaryColor }
+    container: {
+        backgroundColor: uiTheme.palette.primaryColor,
+        elevation: 5,
+    }
 }

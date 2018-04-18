@@ -17,7 +17,8 @@
         "password_confirmation": "Confirme sua senha",
         "invalidName": "Por favor, nos diga seu nome",
         "subscribe_button": "Inscrever-se",
-        "unmatchPassword": "Senha de confirmação incorreta"
+        "unmatchPassword": "Senha de confirmação incorreta",
+        "subscribeSuccess": "Obrigado por se registrar!"
     },
     "topMenu": {
         "logout": "Sair"
@@ -29,7 +30,8 @@
         "description": "De maneira clara e objetiva, descreva a missão...",
         "dateStart": "Início",
         "dateEnd": "Fim",
-        "create": "Criar"
+        "create": "Criar",
+        "newMissionSuccess": "Nova missão adicionada!"
     },
     "validation": {
         "mission": {

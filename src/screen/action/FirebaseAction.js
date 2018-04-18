@@ -6,6 +6,7 @@ import {
     FIREBASE_LOG_FIRED, FIREBASE_LOG_SUCCESS, FIREBASE_LOG_ERROR, FIREBASE_SUB_INVALID
 } from '../../reducer/_ActionType';
 import { strings } from '../../../locales/_i18n';
+import * as Toast from '../../util/Toast';
 
 ///LOGIN
 export const login = ({ username, password }) => {
@@ -70,7 +71,7 @@ function subscribeInProgress() {
 const subscribeSuccess = (dispatch) => {
     dispatch({ type: FIREBASE_SUB_SUCCESS });
     Actions.loginScreen();
-    // TOAST DE SUCCESSO
+    Toast.short(strings('subscription.subscribeSuccess'));
 }
 
 const validationError = (message, dispatch) => {

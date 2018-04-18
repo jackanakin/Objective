@@ -7,6 +7,7 @@ export default function Mission(props) {
     this.objectives = props.objectives;
     this.start = props.start;
     this.deadline = props.deadline;
+    this.finished = false;
 }
 
 export function saveValidate(mission) {

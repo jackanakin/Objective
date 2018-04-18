@@ -27,7 +27,7 @@ export default class Routes extends PureComponent {
                             title={strings('subscription.title')} />
                     </Scene>
 
-                    <Scene key="app">
+                    <Scene initial key="app">
                         <Scene hideNavBar key='appHome' component={TabView} />
                         <Scene key='newMission' component={NewMission} title={strings('newMission.screenTitle')} />
                     </Scene>
