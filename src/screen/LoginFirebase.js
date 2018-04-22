@@ -56,7 +56,7 @@ class Login extends Component {
                     }
 
                     <MyButton text="Entrar" onPress={this._login} />
-                    <MyButton text="Inscreva-se" onPress={() => Actions.subscribeFirebaseScreen()} />
+                    <MyButton text="Inscreva-se" secondary={true} onPress={() => Actions.subscribeFirebaseScreen()} />
                 </MyView>
             </MyBackground>
         );

@@ -13,8 +13,8 @@ export const login = ({ username, password }) => {
     return dispatch => {
         dispatch(loginInProgress());
         firebase.auth().signInWithEmailAndPassword(username, password)
-            .then(value => loginSuccess(dispatch))
-            .catch(erro => loginError(erro, dispatch));
+            .then(value => { loginSuccess(dispatch); })
+            .catch(erro => { loginError(erro, dispatch); });
     }
 }
 

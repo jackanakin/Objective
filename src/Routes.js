@@ -5,9 +5,11 @@ import { strings } from '../locales/_i18n';
 
 import Login from './screen/LoginFirebase';
 import SubscribeFirebase from './screen/SubscribeFirebase';
-import Home from './screen/Home';
-import TabView from './screen/TabView';
+import MissionView from './screen/MissionView';
 import NewMission from './screen/NewMission';
+import NewParticipant from './screen/NewParticipant';
+import MissionList from './screen/MissionList';
+import ListMissionMenu from './screen/menu/ListMissionMenu';
 
 import { navBarStyle } from './style/navigationBar';
 
@@ -28,8 +30,10 @@ export default class Routes extends PureComponent {
                     </Scene>
 
                     <Scene initial key="app">
-                        <Scene hideNavBar key='appHome' component={TabView} />
+                        <Scene key='appHome' navBar={ListMissionMenu} component={MissionList} />
                         <Scene key='newMission' component={NewMission} title={strings('newMission.screenTitle')} />
+                        <Scene key='newParticipant' component={NewParticipant} title={strings('newParticipant.screenTitle')} />
+                        <Scene key='missionView' component={MissionView} />
                     </Scene>
 
                 </Scene>

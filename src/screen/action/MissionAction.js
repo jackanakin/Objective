@@ -4,18 +4,21 @@ import { Actions } from 'react-native-router-flux';
 import _ from 'lodash';
 
 import {
-    MISSION_NEW_FIRED, MISSION_NEW_VE, MISSION_NEW_ERROR, MISSION_NEW_SUCCESS, MISSION_FLIST
+    MISSION_NEW_FIRED, MISSION_NEW_VE, MISSION_NEW_ERROR,
+    MISSION_NEW_SUCCESS, MISSION_FLIST, MISSION_SET
 } from '../../reducer/_ActionType';
 import { strings } from '../../../locales/_i18n';
 import { saveValidate, buildMissionObject } from '../../entity/Mission';
 import * as Toast from '../../util/Toast';
 
-export const listMission = () => {
-    //const { currentUser } = firebase.auth();
-
+export const setMission = (mission) => {
     return (dispatch) => {
-        //let emailUsuarioB64 = b64.encode(currentUser.email);
+        dispatch({ type: MISSION_SET, payload: mission });
+    }
+}
 
+export const listMission = () => {
+    return (dispatch) => {
         firebase.database().ref(`/missions/`)
             .on("value", snapshot => {
                 dispatch({ type: MISSION_FLIST, payload: snapshot.val() })
@@ -38,7 +41,19 @@ export const newMission = (mission) => {
 
             firebase.database().ref(`missions`)
                 .push(saveObj)
-                .then(value => newMissionSuccess(dispatch))
+                .then(value => {
+                    let uid = value.path.pieces_[1];
+                    firebase.database().ref(`mission_account/${uid}/${encodedCurrentUser}`)
+                        .push({ status: 'a' })
+                        .then(() => {
+                            firebase.database().ref(`account_mission/${encodedCurrentUser}/${uid}`)
+                                .push({ status: 'a' })
+                                .catch(error => newMissionError(error.message, dispatch));
+                        }).catch(error => newMissionError(error.message, dispatch));
+                })
+                .then(res => {
+                    newMissionSuccess(dispatch);
+                })
                 .catch(error => newMissionError(error.message, dispatch));
         }
     }

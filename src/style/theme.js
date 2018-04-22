@@ -1,5 +1,5 @@
 import { COLOR } from 'react-native-material-ui';
-import { Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const deviceWidth = Dimensions.get('screen').width;
 const primaryTextColor = '#212121';
@@ -8,7 +8,7 @@ const secondaryTextColor = COLOR.white;
 export const errorTextColor = COLOR.redA700;
 
 export const uiTheme = {
-    fontFamily: 'Iowan Old Style',//Roboto',
+    fontFamily: 'Roboto',
     palette: {
         // main theme colors
         primaryColor: primaryColor,
@@ -18,11 +18,12 @@ export const uiTheme = {
         primaryBackground: '#bdbdbd',
 
         secondaryColor: '#212121',
+        accentColor: '#212121',
         secondaryLightColor: '#484848',
         secondaryDarkColor: '#000000',
         secondaryTextColor: secondaryTextColor,
 
-        accentColor: COLOR.red500,
+        
         alternateColor: COLOR.green500,
         // text color palette
         alternateTextColor: COLOR.grey700,

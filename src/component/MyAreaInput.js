@@ -7,7 +7,7 @@ export default class MyAreaInput extends Component {
     render() {
         return (
             <View style={{
-                backgroundColor: uiTheme.palette.primaryBackground,
+                //backgroundColor: uiTheme.palette.primaryBackground,
                 borderBottomColor: uiTheme.palette.primaryTextColor,
                 borderBottomWidth: 1
             }}>

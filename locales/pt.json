@@ -5,10 +5,6 @@
     "login": {
         "title": "Objective"
     },
-    "appHome": {
-        "active": "Ativos",
-        "new": "Novo"
-    },
     "subscription": {
         "title": "Inscrição",
         "username": "Seu nome",
@@ -21,7 +17,8 @@
         "subscribeSuccess": "Obrigado por se registrar!"
     },
     "topMenu": {
-        "logout": "Sair"
+        "logout": "Sair",
+        "title": "Objective"
     },
     "newMission": {
         "screenTitle": "Nova missão",
@@ -33,10 +30,24 @@
         "create": "Criar",
         "newMissionSuccess": "Nova missão adicionada!"
     },
+    "newParticipant": {
+        "screenTitle": "Adicionar participante",
+        "participantEmail": "E-mail do participante",
+        "addParticipant": "Adicionar",
+        "newParticipantSuccess": "Novo participante adicionado!"
+    },
+    "missionView": {
+        "screenTitle": "",
+        "wall": "Mural",
+        "participants": "Participantes"
+    },
     "validation": {
         "mission": {
             "title": "Por favor, dê um nome a missão",
             "startDate": "Atenção, o prazo encerra antes que o início"
+        },
+        "newParticipant": {
+            "email": "E-mail inválido!"
         }
     }
 }

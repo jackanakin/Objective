@@ -6,8 +6,9 @@ import { deviceWidth, uiTheme } from '../style/theme'
 export default class MyButton extends PureComponent {
     render() {
         return (
-            <Button style={uiTheme.button} upperCase={this.props.upperCase} raised primary text={this.props.text}
-                onPress={this.props.onPress} />
+            <Button style={uiTheme.button} upperCase={this.props.upperCase} raised
+                primary={!this.props.secondary} accent={this.props.secondary}
+                text={this.props.text} onPress={this.props.onPress} />
         )
     }
 }

@@ -18,5 +18,4 @@ const style = {
     justifyContent: 'center',
     flexGrow: 1,
     alignItems: 'center',
-    backgroundColor: uiTheme.palette.primaryBackground
 }
