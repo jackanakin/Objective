@@ -30,7 +30,11 @@ export default (state = INITIAL_STATE, action) => {
         case NEW_PARTICIPANT_SUCCESS:
             return { ...state, requestNewParticipant: new HttpRequest({ inProgress: false }) }
         case NEW_PARTICIPANT_VE:
-            return { ...state, validationNewParticipant: new Validation({ empty: false, response: action.payload }) }
+            return {
+                ...state,
+                requestNewParticipant: new HttpRequest({ inProgress: false, message: null }),
+                validationNewParticipant: new Validation({ empty: false, response: action.payload })
+            }
         ///
         case MISSION_NEW_FIRED:
             return {

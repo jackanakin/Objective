@@ -47,7 +47,8 @@
             "startDate": "Atenção, o prazo encerra antes que o início"
         },
         "newParticipant": {
-            "email": "E-mail inválido!"
+            "email": "E-mail inválido!",
+            "alreadyParticipant": "E-mail já cadastrado!"
         }
     }
 }

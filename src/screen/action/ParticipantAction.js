@@ -16,25 +16,43 @@ export const newParticipant = (email, missionUID) => {
         if (validateEmail(email)) {
             dispatch({ type: NEW_PARTICIPANT_FIRED });
             let encodedCurrentUser = b64.encode(email);
-            console.log("------------");
-            console.log(encodedCurrentUser);
-            console.log(missionUID);
-            console.log("------------");//VALIDAR E-MAIL JÁ CADASTRADO
-            firebase.database().ref(`mission_account/${missionUID}/${encodedCurrentUser}`)
-                .push({ status: 'a' })
-                .then(() => {
-                    firebase.database().ref(`account_mission/${encodedCurrentUser}/${missionUID}`)
-                        .push({ status: 'a' })
-                        .then(() => newParticipantSuccess(dispatch))
-                        .catch(error => newParticipantError(error.message, dispatch));
+
+            firebase.database().ref(`/mission_account/${missionUID}/${encodedCurrentUser}`)
+                .once('value')
+                .then(function (snapshot) {
+                    let foundHim = _.first(_.values(snapshot.val()));
+                    if (foundHim === undefined) {
+                        firebase.database().ref(`mission_account/${missionUID}/${encodedCurrentUser}`)
+                            .push({ status: 'a' })
+                            .then(() => {
+                                firebase.database().ref(`account_mission/${encodedCurrentUser}/${missionUID}`)
+                                    .push({ status: 'a' })
+                                    .then(() => newParticipantSuccess(dispatch))
+                                    .catch(error => newParticipantError(error.message, dispatch));
+                            })
+                            .catch(error => newParticipantError(error.message, dispatch));
+                    } else {
+                        let validation = {};
+                        validation.email = "validation.newParticipant.alreadyParticipant";
+                        newParticipantVE(validation, dispatch);
+                    }
                 })
                 .catch(error => newParticipantError(error.message, dispatch));
         } else {
             let validation = {};
             validation.email = "validation.newParticipant.email";
-            dispatch({ type: NEW_PARTICIPANT_VE, payload: validation });
+            newParticipantVE(validation, dispatch);
         }
     }
+}
+
+const newParticipantVE = (validation, dispatch) => {
+    dispatch(
+        {
+            type: NEW_PARTICIPANT_VE,
+            payload: validation
+        }
+    )
 }
 
 const newParticipantSuccess = (dispatch) => {

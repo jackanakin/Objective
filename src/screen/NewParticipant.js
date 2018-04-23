@@ -31,8 +31,9 @@ class NewParticipant extends Component {
     }
   }
 
-  _newParticipant = () => {
-    this.props.newParticipant(this.state.participantEmail, this.props.missionUID);
+  _newParticipant = async () => {
+    await this.props.newParticipant(this.state.participantEmail, this.props.missionUID);
+    console.warn("terminoua");
   }
 
   render() {
