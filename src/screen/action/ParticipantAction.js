@@ -11,12 +11,11 @@ import { saveValidate, buildMissionObject } from '../../entity/Mission';
 import * as Toast from '../../util/Toast';
 import { validateEmail } from '../../util/JsUtil';
 
-export const newParticipant = (email, missionUID) => {
+export const newParticipant = (successCallback, email, missionUID) => {
     return dispatch => {
         if (validateEmail(email)) {
             dispatch({ type: NEW_PARTICIPANT_FIRED });
             let encodedCurrentUser = b64.encode(email);
-
             firebase.database().ref(`/mission_account/${missionUID}/${encodedCurrentUser}`)
                 .once('value')
                 .then(function (snapshot) {
@@ -28,6 +27,7 @@ export const newParticipant = (email, missionUID) => {
                                 firebase.database().ref(`account_mission/${encodedCurrentUser}/${missionUID}`)
                                     .push({ status: 'a' })
                                     .then(() => newParticipantSuccess(dispatch))
+                                    .then(() => successCallback())
                                     .catch(error => newParticipantError(error.message, dispatch));
                             })
                             .catch(error => newParticipantError(error.message, dispatch));

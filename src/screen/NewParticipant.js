@@ -3,7 +3,7 @@ import {
   View,
   Alert,
   StyleSheet,
-  Text
+  Text, TextInput
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { ScrollView } from 'react-native';
@@ -11,7 +11,7 @@ import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { newParticipant } from './action/ParticipantAction';
 import { strings } from '../../locales/_i18n';
-import { deviceWidth, uiTheme } from '../style/theme'
+import { deviceWidth, uiTheme, errorTextColor } from '../style/theme'
 
 import MyTextInput from '../component/MyTextInput'
 import MyButton from '../component/MyButton'
@@ -26,21 +26,35 @@ class NewParticipant extends Component {
   constructor() {
     super();
     this.state = {
-      participantEmail: null,
-      mission_uid: null
+      participantEmail: null
     }
+    this._newParticipant.bind(this);
+    this.emailInput = React.createRef();
   }
 
-  _newParticipant = async () => {
-    await this.props.newParticipant(this.state.participantEmail, this.props.missionUID);
-    console.warn("terminoua");
+  _newParticipant = () => {
+    this.props.newParticipant(function () {
+      this.inputEmail.clear();
+    }.bind(this), this.state.participantEmail, this.props.missionUID);
   }
+
+  /*
+  handleMonthChange_next = () => {
+    this.setState({
+        currentMonth: +this.state.currentMonth + 1
+    }, () => {
+     this.props.getCalendarData(this.state.currentMonth)
+    })
+}
+*/
 
   render() {
     const { requestNewParticipant, validationNewParticipant } = this.props;
     const validationArray = validationNewParticipant.response;
-
     const emailVE = !validationNewParticipant.empty && validationArray.email;
+
+    const validationStyle = emailVE ? uiTheme.inputTextValidation : null;
+    //const validationMessage = strings(validationArray.email);
 
     return (
       <MyBackground>
@@ -52,10 +66,17 @@ class NewParticipant extends Component {
         }}>
           <MyForm>
             <MyProgress animating={requestNewParticipant.inProgress} />
-            <MyTextInput vm={emailVE ? strings(validationArray.email) : null}
-              placeholder={strings('newParticipant.participantEmail')} onChangeText={text => this.setState(prevState => ({
-                participantEmail: text
-              }))} />
+            <View>
+              <TextInput style={[uiTheme.inputText, validationStyle]}
+                placeholderTextColor={[uiTheme.placeholderTextColor]}
+                underlineColorAndroid="transparent" autoCapitalize="none" placeholder={strings('newParticipant.participantEmail')}
+                onChangeText={text => this.setState(prevState => ({
+                  participantEmail: text
+                }))} ref={input => this.inputEmail = input} />
+              {emailVE ?
+                <Text style={{ color: errorTextColor }}>{strings(validationArray.email)}</Text> : null
+              }
+            </View>
 
             {
               requestNewParticipant.message ?
@@ -74,7 +95,7 @@ class NewParticipant extends Component {
 
           </MyForm>
           <View>
-            <MyTextError text="Teste aaaaaaaaaaaaaaa" />
+            <MyTextError text={this.state.var} />
             <MyTextError text="Teste aaaaaaaaaaaaaaa" />
             <MyTextError text="Teste aaaaaaaaaaaaaaa" />
             <MyTextError text="Teste aaaaaaaaaaaaaaa" />

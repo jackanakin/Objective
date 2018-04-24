@@ -10,7 +10,7 @@ export default class MyTextInput extends Component {
 
         return (
             <View>
-                <TextInput
+                <TextInput ref={this.props.refID}
                     style={[uiTheme.inputText, validationStyle]}
                     placeholderTextColor={[uiTheme.placeholderTextColor]}
                     underlineColorAndroid="transparent" autoCapitalize="none" placeholder={this.props.placeholder}
