@@ -1,7 +1,8 @@
 import {
     MISSION_NEW_SUCCESS, MISSION_NEW_FIRED, MISSION_NEW_VE,
     MISSION_NEW_ERROR, MISSION_FLIST, MISSION_SET,
-    NEW_PARTICIPANT_FIRED, NEW_PARTICIPANT_ERROR, NEW_PARTICIPANT_VE, NEW_PARTICIPANT_SUCCESS
+    NEW_PARTICIPANT_FIRED, NEW_PARTICIPANT_ERROR, NEW_PARTICIPANT_VE, NEW_PARTICIPANT_SUCCESS,
+    PARTICIPANT_FLIST
 } from './_ActionType';
 import HttpRequest from '../util/HttpRequest'
 import Validation from '../util/Validation'
@@ -13,7 +14,7 @@ const INITIAL_STATE = {
     validation: new Validation({ empty: true }),
     validationNewParticipant: new Validation({ empty: true }),
 
-    missionList: [],
+    missionList: [], participantSource: {},
     mission: null, participantList: []
 }
 
@@ -28,7 +29,8 @@ export default (state = INITIAL_STATE, action) => {
         case NEW_PARTICIPANT_ERROR:
             return { ...state, requestNewParticipant: new HttpRequest({ inProgress: false, message: action.payload }) }
         case NEW_PARTICIPANT_SUCCESS:
-            return { ...state, requestNewParticipant: new HttpRequest({ inProgress: false }) }
+            let tempArray = state.participantList.concat(action.payload);
+            return { ...state, requestNewParticipant: new HttpRequest({ inProgress: false }), participantList: tempArray }
         case NEW_PARTICIPANT_VE:
             return {
                 ...state,
@@ -50,8 +52,10 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, request: new HttpRequest({ inProgress: false }) }
         case MISSION_FLIST:
             return { ...state, missionList: action.payload }
+        case PARTICIPANT_FLIST:
+            return { ...state, participantSource: action.payload }
         case MISSION_SET:
-            return { ...state, mission: action.payload }
+            return { ...state, mission: action.payload, participantList: [] }
         default:
             return state;
     }

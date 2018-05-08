@@ -4,6 +4,8 @@
 
 # Bundle: react-native bundle --dev false --platform android --entry-file index.android.js --bundle-output ./android/app/build/intermediates/assets/debug/index.android.bundle --assets-dest ./android/app/build/intermediates/res/merged/debug
 
+# react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
 # Build: gradlew assembleRelease
 
 # FLEX BOX CHEATSHEET:

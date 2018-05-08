@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ListView, TouchableHighlight } from 'react-native';
-import { ListItem } from 'react-native-material-ui';
+import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -32,13 +31,25 @@ class MissionList extends Component {
     }
 
     createMissionDataSource(missionList) {
-        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-        this.setState({ missionSource: ds.cloneWithRows(missionList) });
+        let list = null;
+        if (!_.isEmpty(this.props.missionList)) {
+            const filteredList = _.filter(this.props.missionList, function (obj) {
+                return obj.status === 'a';
+            });
+
+            list = _.map(filteredList, (val, key) => {
+                if (val.status == 'a') {
+                    return val.mission;
+                }
+            });
+        }
+        console.warn(list);
+        //const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+        //this.setState({ missionSource: ds.cloneWithRows(missionList) });
     }
 
     _openMission(mission) {
         this.props.setMission(mission);
-        Actions.missionView({ title: mission.title });
     }
 
     renderMission = (mission) => {
@@ -54,11 +65,7 @@ class MissionList extends Component {
     render() {
         return (
             <MyBackground>
-                {this.state.missionSource ?
-                    <ListView
-                        enableEmptySections
-                        dataSource={this.state.missionSource}
-                        renderRow={this.renderMission} /> : null}
+
                 <MyActionButton onPress={() => Actions.newMission()} />
             </MyBackground>
         )

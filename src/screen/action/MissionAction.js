@@ -12,14 +12,17 @@ import { saveValidate, buildMissionObject } from '../../entity/Mission';
 import * as Toast from '../../util/Toast';
 
 export const setMission = (mission) => {
-    return (dispatch) => {
+    return dispatch => {
         dispatch({ type: MISSION_SET, payload: mission });
-    }
+        Actions.missionView({ title: mission.title });
+    };
 }
 
 export const listMission = () => {
     return (dispatch) => {
-        firebase.database().ref(`/missions/`)
+        const { currentUser } = firebase.auth();
+        let encodedCurrentUser = b64.encode(currentUser.email);
+        firebase.database().ref(`account_mission/${encodedCurrentUser}`)
             .on("value", snapshot => {
                 dispatch({ type: MISSION_FLIST, payload: snapshot.val() })
             });
@@ -43,11 +46,11 @@ export const newMission = (mission) => {
                 .push(saveObj)
                 .then(value => {
                     let uid = value.path.pieces_[1];
-                    firebase.database().ref(`mission_account/${uid}/${encodedCurrentUser}`)
-                        .push({ status: 'a' })
+                    firebase.database().ref(`mission_account/${uid}`)
+                        .push({ account: encodedCurrentUser, status: 'a' })
                         .then(() => {
-                            firebase.database().ref(`account_mission/${encodedCurrentUser}/${uid}`)
-                                .push({ status: 'a' })
+                            firebase.database().ref(`account_mission/${encodedCurrentUser}`)
+                                .push({ mission: uid, status: 'a' })
                                 .catch(error => newMissionError(error.message, dispatch));
                         }).catch(error => newMissionError(error.message, dispatch));
                 })

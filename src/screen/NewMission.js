@@ -45,7 +45,6 @@ class NewMission extends Component {
 
     const startDateVE = !validation.empty && validationArray.startDate;
     const titleVE = !validation.empty && validationArray.title;
-
     return (
       <MyBackground>
         <MyView>

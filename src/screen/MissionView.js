@@ -4,14 +4,7 @@ import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import Mission from './Mission';
 import { strings } from '../../locales/_i18n';
 import MissionMenu from './menu/MissionMenu';
-
-const initialLayout = {
-    height: 0,
-    width: Dimensions.get('window').width,
-};
-
-
-const SecondRoute = () => <View style={[styles.container, { backgroundColor: '#673ab7' }]} />;
+import ParticipantList from './ParticipantList';
 
 export default class MissionView extends React.Component {
     state = {
@@ -28,24 +21,15 @@ export default class MissionView extends React.Component {
 
     _renderScene = SceneMap({
         '1': Mission,
-        '2': SecondRoute
+        '2': ParticipantList
     });
 
     render() {
         return (
-            <TabViewAnimated
-                navigationState={this.state}
+            <TabViewAnimated navigationState={this.state}
                 renderScene={this._renderScene}
                 renderHeader={this._renderHeader}
-                onIndexChange={this._handleIndexChange}
-                initialLayout={initialLayout}
-            />
+                onIndexChange={this._handleIndexChange} />
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-});

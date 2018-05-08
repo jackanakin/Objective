@@ -1,13 +1,12 @@
 {
   "name": "ReactNativeTemplate",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "base-64": "^0.1.0",
     "firebase": "^4.12.1",
     "immutable": "^3.8.2",

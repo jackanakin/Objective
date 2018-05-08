@@ -24,7 +24,7 @@ class Mission extends Component {
         justifyContent: 'space-between',
       }}>
         <Text >
-          Welcome to React Native!
+          Welcome to React Native! 11:04 PM
         </Text>
         <Text >
           To get started, edit App.js

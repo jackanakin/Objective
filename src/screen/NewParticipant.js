@@ -49,12 +49,10 @@ class NewParticipant extends Component {
 */
 
   render() {
-    const { requestNewParticipant, validationNewParticipant } = this.props;
+    const { requestNewParticipant, validationNewParticipant, participantList } = this.props;
     const validationArray = validationNewParticipant.response;
     const emailVE = !validationNewParticipant.empty && validationArray.email;
-
     const validationStyle = emailVE ? uiTheme.inputTextValidation : null;
-    //const validationMessage = strings(validationArray.email);
 
     return (
       <MyBackground>
@@ -92,15 +90,15 @@ class NewParticipant extends Component {
                 </Text>
               </Icon.Button>
             </View>
-
           </MyForm>
           <View>
-            <MyTextError text={this.state.var} />
-            <MyTextError text="Teste aaaaaaaaaaaaaaa" />
-            <MyTextError text="Teste aaaaaaaaaaaaaaa" />
-            <MyTextError text="Teste aaaaaaaaaaaaaaa" />
-            <MyTextError text="Teste aaaaaaaaaaaaaaa" />
-            <MyTextError text="Teste aaaaaaaaaaaaaaa" />
+            {participantList ?
+              participantList.map((item, index) => {
+                return (
+                  <Text key={index}>{item}{strings('newParticipant.addedParticipant')}</Text>
+                )
+              })
+              : null}
           </View>
           <View />
         </ScrollView>
@@ -112,7 +110,8 @@ class NewParticipant extends Component {
 const mapStateToProps = state => {
   return ({
     requestNewParticipant: state.MissionReducer.requestNewParticipant,
-    validationNewParticipant: state.MissionReducer.validationNewParticipant
+    validationNewParticipant: state.MissionReducer.validationNewParticipant,
+    participantList: state.MissionReducer.participantList
   });
 }
 

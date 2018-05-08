@@ -34,7 +34,8 @@
         "screenTitle": "Adicionar participante",
         "participantEmail": "E-mail do participante",
         "addParticipant": "Adicionar",
-        "newParticipantSuccess": "Novo participante adicionado!"
+        "newParticipantSuccess": "Novo participante adicionado!",
+        "addedParticipant": " adicionado com sucesso!"
     },
     "missionView": {
         "screenTitle": "",
