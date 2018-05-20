@@ -11,6 +11,16 @@ import { strings } from '../../../locales/_i18n';
 import { saveValidate, buildMissionObject } from '../../entity/Mission';
 import * as Toast from '../../util/Toast';
 
+export const fetchMission = (uid) => {
+    return new Promise(resolve => {
+        firebase.database().ref(`/missions/${uid}/`)
+            .once('value')
+            .then(snapshot => {
+                resolve(snapshot.val());
+            });
+    });
+}
+
 export const setMission = (mission) => {
     return dispatch => {
         dispatch({ type: MISSION_SET, payload: mission });

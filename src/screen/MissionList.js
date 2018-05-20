@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -10,13 +11,13 @@ import MyActionButton from '../component/MyActionButton';
 import MyButton from '../component/MyButton';
 
 import { listMission, setMission } from './action/MissionAction';
+import * as MissionAction from './action/MissionAction';
 import { uiTheme } from '../style/theme';
 
 class MissionList extends Component {
     constructor() {
         super();
-        this.state = { missionSource: null };
-        this._openMission = this._openMission.bind(this);
+        this.state = { missionSource: [] };
     }
 
     componentDidMount() {
@@ -24,48 +25,47 @@ class MissionList extends Component {
         this.createMissionDataSource(this.props.missionList);
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps, prevState) {
         if (prevProps.missionList !== this.props.missionList) {
-            this.createMissionDataSource(this.props.missionList);
+            await this.createMissionDataSource(this.props.missionList);
         }
     }
 
-    createMissionDataSource(missionList) {
-        let list = null;
+    createMissionDataSource = async (missionList) => {
         if (!_.isEmpty(this.props.missionList)) {
-            const filteredList = _.filter(this.props.missionList, function (obj) {
-                return obj.status === 'a';
-            });
-
-            list = _.map(filteredList, (val, key) => {
-                if (val.status == 'a') {
-                    return val.mission;
-                }
-            });
+            const filteredList = await Promise.all(_.map(this.props.missionList, async function (obj) {
+                let fetch = await firebase.database().ref(`/missions/${obj.mission}/`).once('value');
+                fetch = fetch.val();
+                fetch.key = obj.mission;
+                return fetch;
+            }));
+            this.setState({ missionSource: filteredList });
         }
-        console.warn(list);
-        //const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
-        //this.setState({ missionSource: ds.cloneWithRows(missionList) });
     }
 
-    _openMission(mission) {
+    _openMission = (mission) => {
         this.props.setMission(mission);
     }
 
-    renderMission = (mission) => {
+    renderMission = (object) => {
         return (
-            <TouchableHighlight onPress={() => this._openMission(mission)} >
+            <TouchableHighlight onPress={() => this._openMission(object)} >
                 <View style={{ flex: 1, padding: 25, borderBottomWidth: 1, borderColor: "#CCC" }}>
-                    <Text style={{ fontSize: 18 }}>{mission.title}</Text>
+                    <Text style={{ fontSize: 18 }}>{object.title}</Text>
                 </View>
             </TouchableHighlight>
-        )
+        );
     }
 
     render() {
         return (
             <MyBackground>
-
+                {!_.isEmpty(this.state.missionSource) ?
+                    <FlatList
+                        data={this.state.missionSource}
+                        renderItem={({ item }) => this.renderMission(item)}
+                    /> : <Text>empty.result</Text>
+                }
                 <MyActionButton onPress={() => Actions.newMission()} />
             </MyBackground>
         )
@@ -80,3 +80,16 @@ mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { listMission, setMission })(MissionList);
+
+/**
+ <FlatList
+                    data={list}
+                    renderItem={({ item }) =>
+                        <TouchableHighlight onPress={() => false} >
+                            <View style={{ flex: 1, padding: 25, borderBottomWidth: 1, borderColor: "#CCC" }}>
+                                <Text style={{ fontSize: 18 }}>{item.name}</Text>
+                            </View>
+                        </TouchableHighlight>}
+                /> 
+ 
+ */
