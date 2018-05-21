@@ -10,8 +10,7 @@ import MyBackground from '../component/MyBackground'
 import MyActionButton from '../component/MyActionButton';
 import MyButton from '../component/MyButton';
 
-import { listMission, setMission } from './action/MissionAction';
-import * as MissionAction from './action/MissionAction';
+import { listMission, setMission, unlistMission } from './action/MissionAction';
 import { uiTheme } from '../style/theme';
 
 class MissionList extends Component {
@@ -25,9 +24,9 @@ class MissionList extends Component {
         this.createMissionDataSource(this.props.missionList);
     }
 
-    async componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.missionList !== this.props.missionList) {
-            await this.createMissionDataSource(this.props.missionList);
+            this.createMissionDataSource(this.props.missionList);
         }
     }
 
@@ -70,6 +69,10 @@ class MissionList extends Component {
             </MyBackground>
         )
     }
+
+    componentWillUnmount() {
+        this.props.unlistMission();
+    }
 }
 
 mapStateToProps = state => {
@@ -79,17 +82,4 @@ mapStateToProps = state => {
     return { missionList }
 }
 
-export default connect(mapStateToProps, { listMission, setMission })(MissionList);
-
-/**
- <FlatList
-                    data={list}
-                    renderItem={({ item }) =>
-                        <TouchableHighlight onPress={() => false} >
-                            <View style={{ flex: 1, padding: 25, borderBottomWidth: 1, borderColor: "#CCC" }}>
-                                <Text style={{ fontSize: 18 }}>{item.name}</Text>
-                            </View>
-                        </TouchableHighlight>}
-                /> 
- 
- */
+export default connect(mapStateToProps, { listMission, setMission, unlistMission })(MissionList);

@@ -11,10 +11,6 @@ import { uiTheme } from '../style/theme';
 
 
 class Mission extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     const { mission } = this.props;
     return (
@@ -42,7 +38,7 @@ class Mission extends Component {
             <BottomNavigation.Action
               key="add_participant"
               icon="group-add"
-              onPress={() => Actions.newParticipant({ missionUID: this.props.mission.uid })}
+              onPress={() => Actions.newParticipant({ missionUID: mission.key })}
             />
             <BottomNavigation.Action
               key="finish"
@@ -64,8 +60,6 @@ class Mission extends Component {
 const mapStateToProps = state => {
   return ({
     mission: state.MissionReducer.mission
-    /*request: state.MissionReducer.request,
-    validation: state.MissionReducer.validation*/
   });
 }
 

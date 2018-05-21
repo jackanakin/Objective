@@ -21,14 +21,14 @@ class ParticipantList extends Component {
     }
 
     componentDidMount() {
-        this.props.listParticipant(this.props.mission.uid);
+        this.props.listParticipant(this.props.mission.key);
     }
 
     renderParticipant = (participant) => {
         return (
             <TouchableHighlight onPress={() => false} >
                 <View style={{ flex: 1, padding: 25, borderBottomWidth: 1, borderColor: "#CCC" }}>
-                    <Text key={participant.account} style={{ fontSize: 18 }}>{b64.decode(participant.account)}</Text>
+                    <Text style={{ fontSize: 18 }}>{b64.decode(participant.account)}</Text>
                 </View>
             </TouchableHighlight>
         )
@@ -44,15 +44,11 @@ class ParticipantList extends Component {
 
         return (
             <MyBackground>
-                <FlatList
-                    data={list}
-                    renderItem={({ item }) =>
-                        <TouchableHighlight onPress={() => false} >
-                            <View style={{ flex: 1, padding: 25, borderBottomWidth: 1, borderColor: "#CCC" }}>
-                                <Text style={{ fontSize: 18 }}>{b64.decode(item.account)}</Text>
-                            </View>
-                        </TouchableHighlight>}
-                />
+                {list ?
+                    <FlatList
+                        data={list}
+                        renderItem={({ item }) => this.renderParticipant(item)} /> : <Text>empty.list</Text>
+                }
             </MyBackground>
         )
     }

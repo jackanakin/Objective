@@ -23,7 +23,7 @@ export const listParticipant = (missionUID) => {
 
 export const unlistParticipant = (missionUID) => {
     return (dispatch) => {
-        firebase.database().ref(`/mission_account/${missionUID}/`).off("value");
+        firebase.database().ref(`/mission_account/${missionUID}`).off("value");
     }
 }
 
@@ -41,8 +41,8 @@ export const newParticipant = (successCallback, email, missionUID) => {
                         firebase.database().ref(`mission_account/${missionUID}`)
                             .push({ account: encodedCurrentUser, status: 'a' })
                             .then(() => {
-                                firebase.database().ref(`account_mission/${encodedCurrentUser}/${missionUID}`)
-                                    .push({ status: 'a' })
+                                firebase.database().ref(`account_mission/${encodedCurrentUser}`)
+                                    .push({ mission: missionUID, status: 'a' })
                                     .then(() => newParticipantSuccess(email, dispatch))
                                     .then(() => successCallback())
                                     .catch(error => newParticipantError(error.message, dispatch));

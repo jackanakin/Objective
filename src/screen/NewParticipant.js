@@ -38,16 +38,6 @@ class NewParticipant extends Component {
     }.bind(this), this.state.participantEmail, this.props.missionUID);
   }
 
-  /*
-  handleMonthChange_next = () => {
-    this.setState({
-        currentMonth: +this.state.currentMonth + 1
-    }, () => {
-     this.props.getCalendarData(this.state.currentMonth)
-    })
-}
-*/
-
   render() {
     const { requestNewParticipant, validationNewParticipant, participantList } = this.props;
     const validationArray = validationNewParticipant.response;
