@@ -8,6 +8,7 @@ import SubscribeFirebase from './screen/SubscribeFirebase';
 import MissionView from './screen/MissionView';
 import NewMission from './screen/NewMission';
 import NewParticipant from './screen/NewParticipant';
+import NewObjective from './screen/NewObjective';
 import MissionList from './screen/MissionList';
 import ListMissionMenu from './screen/menu/ListMissionMenu';
 
@@ -34,6 +35,7 @@ export default class Routes extends PureComponent {
                         <Scene key='newMission' component={NewMission} title={strings('newMission.screenTitle')} />
                         <Scene key='newParticipant' component={NewParticipant} title={strings('newParticipant.screenTitle')} />
                         <Scene key='missionView' component={MissionView} />
+                        <Scene key='newObjective' component={NewObjective} title={strings('newObjective.screenTitle')} />
                     </Scene>
 
                 </Scene>

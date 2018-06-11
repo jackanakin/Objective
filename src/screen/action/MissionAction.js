@@ -19,6 +19,14 @@ export const unlistMission = (missionUID) => {
     }
 }
 
+export const newObjective = (title,missionUID) => {
+    return (dispatch) => {
+        firebase.database().ref(`objectives`)
+        .push(title)
+       
+    }
+}
+
 export const setMission = (mission) => {
     return dispatch => {
         dispatch({ type: MISSION_SET, payload: mission });

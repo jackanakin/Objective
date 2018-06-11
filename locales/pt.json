@@ -37,6 +37,14 @@
         "newParticipantSuccess": "Novo participante adicionado!",
         "addedParticipant": " adicionado com sucesso!"
     },
+    "newObjective": {
+        "screenTitle": "Adicionar objetivo",
+        "title": "Nome do objetivo",
+        "create": "Criar"
+      
+    },
+
+
     "missionView": {
         "screenTitle": "",
         "wall": "Mural",

@@ -33,7 +33,7 @@ class Mission extends Component {
             <BottomNavigation.Action
               key="new_objective"
               icon="flag"
-              onPress={() => false}
+              onPress={() => Actions.newObjective({ missionUID: mission.key })}
             />
             <BottomNavigation.Action
               key="add_participant"
