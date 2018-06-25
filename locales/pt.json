@@ -40,11 +40,10 @@
     "newObjective": {
         "screenTitle": "Adicionar objetivo",
         "title": "Nome do objetivo",
-        "create": "Criar"
-      
+        "create": "Criar",
+        "add": "Adicionar",
+        "selectResponsible": "Selecione o responsável"
     },
-
-
     "missionView": {
         "screenTitle": "",
         "wall": "Mural",
@@ -58,6 +57,10 @@
         "newParticipant": {
             "email": "E-mail inválido!",
             "alreadyParticipant": "E-mail já cadastrado!"
+        },
+        "objective": {
+            "title": "Por favor, dê um nome ao objetivo!",
+            "responsible": "Por favor, selecione um responsável!"
         }
     }
 }

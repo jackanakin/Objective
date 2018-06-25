@@ -8,6 +8,9 @@
 
 # Build: gradlew assembleRelease
 
+#Troubleshoot:
+ Android: cd android && gradlew clean
+
 # FLEX BOX CHEATSHEET:
 - Choose the main axis:
 flexDirection: 'column' || 'row'

@@ -47,7 +47,15 @@ class ParticipantList extends Component {
                 {list ?
                     <FlatList
                         data={list}
-                        renderItem={({ item }) => this.renderParticipant(item)} /> : <Text>empty.list</Text>
+                        renderItem={({ item }) => this.renderParticipant(item)} /> :
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                        <Text>Nenhum participante listado</Text>
+                    </View>
                 }
             </MyBackground>
         )

@@ -5,11 +5,27 @@ import _ from 'lodash';
 
 import {
     MISSION_NEW_FIRED, MISSION_NEW_VE, MISSION_NEW_ERROR,
-    MISSION_NEW_SUCCESS, MISSION_FLIST, MISSION_SET
+    MISSION_NEW_SUCCESS, MISSION_FLIST, MISSION_SET, NEW_OBJECTIVE_VE,
+    NEW_OBJECTIVE_SUCCESS, OBJECTIVE_FLIST
 } from '../../reducer/_ActionType';
 import { strings } from '../../../locales/_i18n';
 import { saveValidate, buildMissionObject } from '../../entity/Mission';
+import { saveValidateObjective, buildObjectiveObject } from '../../entity/Objective';
 import * as Toast from '../../util/Toast';
+
+export const concludeMission = (missionUID) => {
+    return (dispatch) => {
+        firebase.database().ref(`/missions/${missionUID}`).child("finished")
+            .set(true);
+    }
+}
+
+export const concludeObjective = (objective, missionUID) => {
+    return (dispatch) => {
+        firebase.database().ref(`/mission_objective/${missionUID}/${objective.key}`).child("status")
+            .set("C");
+    }
+}
 
 export const unlistMission = (missionUID) => {
     return (dispatch) => {
@@ -19,11 +35,28 @@ export const unlistMission = (missionUID) => {
     }
 }
 
-export const newObjective = (title,missionUID) => {
+export const listObjectives = (missionUID) => {
     return (dispatch) => {
-        firebase.database().ref(`objectives`)
-        .push(title)
-       
+        firebase.database().ref(`mission_objective/${missionUID}`)
+            .on("value", snapshot => {
+                dispatch({ type: OBJECTIVE_FLIST, payload: snapshot.val() });
+            });
+    }
+}
+
+export const newObjective = (objective, missionUID) => {
+    return (dispatch) => {
+        let validation = saveValidateObjective(objective);
+
+        if (!_.isEmpty(validation)) {
+            dispatch(objectiveValidationException(validation));
+        } else {
+            firebase.database().ref(`mission_objective/${missionUID}`)
+                .push(objective).then(() => {
+                    dispatch({ type: NEW_OBJECTIVE_SUCCESS });
+                });
+            Actions.pop();
+        }
     }
 }
 
@@ -92,6 +125,12 @@ const newMissionError = (error, dispatch) => (
         }
     )
 )
+
+function objectiveValidationException(validation) {
+    return {
+        type: NEW_OBJECTIVE_VE, payload: validation
+    }
+}
 
 function validationException(validation) {
     return {

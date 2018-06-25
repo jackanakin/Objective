@@ -14,7 +14,9 @@ export default class ListMissionMenu extends PureComponent {
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={[myText.container, { marginLeft: 20 }]}>{strings('topMenu.title')}</Text>
-                    <Text style={[myText.container, { marginRight: 20 }]}>{strings('topMenu.logout')}</Text>
+                    <TouchableHighlight onPress={() => Actions.loginScreen()}>
+                        <Text style={[myText.container, { marginRight: 20 }]}>{strings('topMenu.logout')}</Text>
+                    </TouchableHighlight>
                 </View>
             </View >
         );

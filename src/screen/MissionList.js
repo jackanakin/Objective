@@ -5,6 +5,7 @@ import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import _ from 'lodash';
+import { Icon } from 'react-native-material-ui';
 
 import MyBackground from '../component/MyBackground'
 import MyActionButton from '../component/MyActionButton';
@@ -47,10 +48,18 @@ class MissionList extends Component {
     }
 
     renderMission = (object) => {
+        const today = new Date();
+        const date = new Date(object.deadline.year, object.deadline.month, object.deadline.day);
+
         return (
-            <TouchableHighlight onPress={() => this._openMission(object)} >
-                <View style={{ flex: 1, padding: 25, borderBottomWidth: 1, borderColor: "#CCC" }}>
-                    <Text style={{ fontSize: 18 }}>{object.title}</Text>
+            <TouchableHighlight onPress={() => this._openMission(object)} underlayColor={"#484848"} >
+                <View style={{ flexDirection: 'row', flex: 1, padding: 25, borderBottomWidth: 1, borderColor: "#CCC" }}>
+                    {
+                        object.finished ? <Icon name="thumb-up" color="green" /> :
+                            today > date ? <Icon name="watch-later" color="red" /> :
+                                <Icon name="zoom-in" color="black" />
+                    }
+                    <Text style={{ fontSize: 18 }}>   {object.title}</Text>
                 </View>
             </TouchableHighlight>
         );
@@ -63,7 +72,15 @@ class MissionList extends Component {
                     <FlatList
                         data={this.state.missionSource}
                         renderItem={({ item }) => this.renderMission(item)}
-                    /> : <Text>empty.result</Text>
+                    /> :
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                        <Text>Nenhuma missão listada</Text>
+                    </View>
                 }
                 <MyActionButton onPress={() => Actions.newMission()} />
             </MyBackground>
