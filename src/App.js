@@ -25,12 +25,12 @@ const _console = _.clone(console);
 class App extends Component {
   componentWillMount() {
     const config = {
-      apiKey: "AIzaSyAry4RDke0xA1km2Q0ArjkJpOTXqrFHRK0",
-      authDomain: "ark-objective.firebaseapp.com",
-      databaseURL: "https://ark-objective.firebaseio.com",
-      projectId: "ark-objective",
-      storageBucket: "ark-objective.appspot.com",
-      messagingSenderId: "637300781377"
+      apiKey: "",
+      authDomain: "",
+      databaseURL: "",
+      projectId: "",
+      storageBucket: "",
+      messagingSenderId: ""
     };
     firebase.initializeApp(config);
   }
